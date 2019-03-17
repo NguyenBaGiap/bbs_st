@@ -17,8 +17,8 @@ GET     /assets/*file               controllers.Assets.versioned(path="/public",
 
 GET     /bbs                        controllers.PostsController.list(page: Int ?= 1)
 GET     /bbs/posts/:id              controllers.PostsController.show(id:Long)
-GET     /bbs/posts-add               controllers.PostsController.add
-
+GET     /bbs/posts-add              controllers.PostsController.add
+POST    /bbs/posts-create           controllers.PostsController.create()
 
 GET     /bbs/user/login             controllers.UserController.login
 GET     /bbs/user/:id               controllers.UserController.detail(id:Long)
