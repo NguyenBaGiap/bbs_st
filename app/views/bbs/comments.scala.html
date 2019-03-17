@@ -1,0 +1,21 @@
+@(comments: Seq[Comment])
+<hr>
+<h2>Bình luận:</h2>
+@if(comments.length == 0){
+    <p>Hiện chưa có bình luận cho bài viết này.</p>
+} else {
+    <div class="detailBox">
+        <div class="actionBox">
+            <ul class="commentList" id="comments" style="list-style: none">
+            @for(c <- comments){
+                <li>
+                    <div class="commentText">
+                        <i> @c.user.get.name say :</i>
+                        <p class="">@c.content</p>
+                    </div>
+                </li>
+            }
+            </ul>
+        </div>
+    </div>
+}

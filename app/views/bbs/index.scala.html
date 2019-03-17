@@ -1,0 +1,62 @@
+@(posts: Seq[Posts], users: Seq[User],sumPageNum:Int,page:Int)
+
+@t() = {
+    <section class="section-01">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-12">
+                    <h3 class="heading-large">Tin tức</h3>
+                    <div class="">
+                    @for(p <- posts) {
+                        <div class="col-lg-6 card">
+                            <div class="card"> <img class="img" src="@p.urlImg" height="200">
+                                <div class="card-body">
+                                    <div class="news-title"><a href="@routes.PostsController.show(p.id)">
+                                        <h2 class=" title-small">@p.title</h2>
+                                    </a>
+                                    </div>
+                                    <p class="card-text" style="white-space: pre;
+                                        overflow: hidden;
+                                        text-overflow: ellipsis;" >@p.description</p>
+                                    <p class="card-text"><small class="text-time"><em>@p.user.get.name</em></small></p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    </div>
+                    @for(i <- 1 to sumPageNum) {
+                        @if(i == page) {
+                            <a href="javascript:void(0);" class="current"><span>@i</span></a>
+                        }else{
+                            <a href="/bbs?page=@i" class=""><span>@i</span></a>
+                        }
+                    }
+                </div>
+                <aside class="col-lg-4 side-bar col-md-12">
+                    <ul class="nav nav-tabs" role="tablist" id="myTab">
+                        <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#home" role="tab">
+                            Thành viên</a> </li>
+                    </ul>
+                        <!-- Tab panes -->
+                    <div class="tab-content sidebar-tabing" id="nav-tabContent">
+                    @for(u <- users) {
+                        <div class="tab-pane active" id="home" role="tabpanel">
+                            <div class="media"> <a href="#">
+                                <img class="d-flex mr-3" src="@u.urlImg" alt="Generic placeholder image"></a>
+                                <div class="media-body">
+                                    <div class="news-title">
+                                        <h2 class="title-small"><a href="#">@u.email</a></h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+}
+@main("BBS") {
+    @t()
+}

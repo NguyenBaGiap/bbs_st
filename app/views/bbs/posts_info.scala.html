@@ -1,0 +1,22 @@
+@(posts: Posts,comments: Seq[Comment])
+
+@content() = {
+    <div class="container">
+        <div class="posts">
+            <h2>@posts.title</h2>
+            <i>Tác giả: @posts.user.get.name</i>
+            <div class="fakeimg">
+                <img src="@posts.urlImg" width="100%" />
+            </div>
+            <p>@posts.description</p>
+            <p>@posts.body</p>
+        </div>
+        <div class="comments">
+            @bbs.comments(comments)
+        </div>
+    </div>
+}
+
+@main("BBS Septech"){
+    @content()
+}
