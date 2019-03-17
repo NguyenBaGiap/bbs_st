@@ -58,7 +58,7 @@ class PostsController @Inject()(cc: MessagesControllerComponents) extends Messag
         'description -> data.description,
         'body -> data.body,
         'userId -> 1,
-        'urlImg -> "https://genknews.genkcdn.vn/2019/3/13/photo-1-15524688858251050873449.jpg"
+        'urlImg -> data.urlImg
       )
       Redirect(routes.PostsController.list()).flashing("info" -> "Posts added (trust me)")
     }
