@@ -17,7 +17,7 @@
             }
         }
         <hr>
-        @helper.form(postsCreateUrl){
+        @helper.form(postsCreateUrl,'enctype -> "multipart/form-data"){
             @helper.CSRF.formField
             @helper.inputText(form("title"),'class->"form-control",'_label -> "Tiêu đề",'_help -> "")
             @helper.textarea(form("description"),'class->"form-control",'_label -> "Mô tả",'_help -> "")

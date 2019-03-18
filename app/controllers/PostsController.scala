@@ -44,6 +44,7 @@ class PostsController @Inject()(cc: MessagesControllerComponents) extends Messag
   }
 
   def create() = Action { implicit request: MessagesRequest[AnyContent] =>
+    println(request.body)
     val errorFunction = { formWithErrors: Form[PostsCreate] =>
       // this is the bad case, where the form had validation errors.
       // show the user the form again, with the errors highlighted.

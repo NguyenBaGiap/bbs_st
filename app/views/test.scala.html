@@ -1,0 +1,11 @@
+@()
+
+@helper.form(action = routes.TestController.uploadFile(), 'enctype -> "multipart/form-data") {
+
+    <input type="file" name="picture">
+
+    <p>
+        <input type="submit">
+    </p>
+
+}
