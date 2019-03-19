@@ -32,9 +32,12 @@ class LoginController @Inject()(cc: MessagesControllerComponents,
     }
     val successFunction = { user: UserLoginForm =>
       // form validation/binding succeeded ...
-      val foundUser: Boolean = userAuth.lookupUser(user)
-      if (foundUser) {
-        Redirect(routes.HomeController.index()).withSession(Ultil.SESSION_USERNAME_KEY -> user.email)
+      val foundUser = userAuth.lookupUser(user)
+      if (foundUser != None) {
+        Redirect(routes.HomeController.index()).withSession(
+          Ultil.SESSION_USERNAME_KEY -> foundUser.get.email,
+          Ultil.SESSION_USER_ID -> foundUser.get.id.toString
+        )
       } else {
         Redirect(routes.LoginController.login())
           .flashing("error" -> s"${Message.ERROR_LOGIN}")

@@ -6,7 +6,8 @@ import scala.util.Random
 @javax.inject.Singleton
 object Ultil {
 
-  val SESSION_USERNAME_KEY = "username_email"
+  val SESSION_USERNAME_KEY = "user_email"
+  val SESSION_USER_ID = "user_id"
   val PREFIX_FILE_NAME:String = "BBS_"
   val LENGTH_CREATE_RANDOM_STRING = 10
   val PREFIX_URI_FILE = "http://localhost:9000/assets/images/"

@@ -14,8 +14,8 @@ class UserController @Inject()(
     Ok(views.html.bbs.user_detail())
   }
 
-  def logout = authenticatedUserAction {implicit request:Request[AnyContent] =>
-    Redirect(routes.HomeController.index())
+  def logout = Action {implicit request:Request[AnyContent] =>
+    Redirect(routes.PostsController.list())
       .flashing("info" -> Message.MESSAGE_LOGOUT)
       .withNewSession
   }

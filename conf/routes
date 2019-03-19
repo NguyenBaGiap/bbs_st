@@ -26,7 +26,9 @@ GET     /bbs/posts/:id              controllers.PostsController.show(id:Long)
 GET     /bbs/posts-add              controllers.PostsController.add
 POST    /bbs/posts-create           controllers.PostsController.create()
 
-GET     /bbs/user/login             controllers.UserController.login
+GET     /bbs/user/login             controllers.LoginController.login
+GET     /bbs/user/logout             controllers.UserController.logout
+POST    /bbs/user/doLogin           controllers.LoginController.doLogin()
 GET     /bbs/user/:id               controllers.UserController.detail(id:Long)
 
 

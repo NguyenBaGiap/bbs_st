@@ -61,8 +61,7 @@ class PostsController @Inject()(cc: MessagesControllerComponents,
       if (fileData != None) {
         val file = fileData.get
         fileName = Ultil.createFileName(file.filename)
-        println(fileName)
-        val fileToPublic = new File(s"/Users/giap_nb/Desktop/Training/bbs_st/public/images/$fileName")
+        val fileToPublic = new File(s"C:\\Users\\noname\\IdeaProjects\\bbs_st\\public\\images\\${fileName}")
         file.ref.copyTo(fileToPublic, replace = true)
       }
 
@@ -70,7 +69,7 @@ class PostsController @Inject()(cc: MessagesControllerComponents,
         'title -> data.title,
         'description -> data.description,
         'body -> data.body,
-        'userId -> 1,
+        'userId -> request.session.get(Ultil.SESSION_USER_ID),
         'urlImg -> Ultil.createUriFileDb(fileName)
       )
 

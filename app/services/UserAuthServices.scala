@@ -3,16 +3,17 @@ package services
 import javax.inject.Singleton
 import models.User
 import models.dto.UserLoginForm
+import play.mvc.BodyParser.Empty
+
+import scala.util._
 
 @Singleton
 class UserAuthServices {
-  def lookupUser(u: UserLoginForm): Boolean = {
-
-    val userDb = User.findByEmail(u.email,u.password)
-    if (userDb.isSuccess && userDb.toOption.nonEmpty){
-      val user = userDb.get.get
-      if(u.email.equals(user.email) && u.password.equals(user.password)) true else false
-
-    } else false
+  def lookupUser(userForm: UserLoginForm): Option[User] = {
+     val user:Option[User] = User.findByEmail(userForm.email, userForm.password) match {
+      case Failure(exception) => None
+      case Success(result) => result
+    }
+    user
   }
 }
