@@ -22,7 +22,6 @@ class ExampleFilter @Inject()(
 
   override def apply(nextFilter: RequestHeader => Future[Result])
            (requestHeader: RequestHeader): Future[Result] = {
-    println("filter run...")
     nextFilter(requestHeader).map { result =>
       result.withHeaders("X-ExampleFilter" -> "foo")
     }

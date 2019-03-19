@@ -20,8 +20,7 @@ class TestController @Inject()(cc: ControllerComponents) extends AbstractControl
       val fileSize = picture.fileSize
       val contentType = picture.contentType
       val fileToPublic = new File(s"/Users/giap_nb/Desktop/Training/bbs_st/public/images/${filename}")
-      println(filename)
-      println(routes.Assets.versioned("images"))
+
       picture.ref.copyTo(fileToPublic,replace = true)
       //picture.ref.moveFileTo(fileToPublic,replace = true)
       Ok("File uploaded")

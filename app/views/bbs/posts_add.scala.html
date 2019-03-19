@@ -1,13 +1,11 @@
 
-@import models.dao.PostsCreate
-@(form:Form[PostsCreate],postsCreateUrl:Call)(implicit request: MessagesRequestHeader)
+@(form:Form[models.dto.PostsCreate],postsCreateUrl:Call)(implicit request: RequestHeader, messagesProvider: MessagesProvider)
 @content() = {
     <div class="container">
         <h2>Thêm tin tức</h2>
         @request.flash.data.map{ case (name, value) =>
         <div>@name: @value</div>
         }
-
         @* Global errors are not tied to any particular form field *@
         @if(form.hasGlobalErrors) {
             @form.globalErrors.map { error: FormError =>
@@ -22,7 +20,7 @@
             @helper.inputText(form("title"),'class->"form-control",'_label -> "Tiêu đề",'_help -> "")
             @helper.textarea(form("description"),'class->"form-control",'_label -> "Mô tả",'_help -> "")
             @helper.textarea(form("body"),'class->"form-control",'_label -> "Nội dung",'_help -> "")
-            @helper.inputText(form("urlImg"),'class->"form-control-file",'_label -> "Hình ảnh",'_help -> "")
+            @helper.inputFile(form("urlImg"),'class->"form-control-file",'type->"file",'_label -> "Hình ảnh",'_help -> "")
             <button class="btn btn-primary">Save</button>
         }
     </div>

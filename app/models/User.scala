@@ -3,6 +3,8 @@ package models
 import scalikejdbc._
 import skinny.orm._
 
+import scala.util.Try
+
 case class User(
                id:Long = 0,
                email:String,
@@ -18,6 +20,8 @@ object User extends SkinnyCRUDMapper[User] {
   override def tableName = "users"
   override def columnNames = Seq("id", "name", "email", "password","role","url_img")
   override lazy val defaultAlias = createAlias("u")
+  private[this] lazy val u = defaultAlias
+
   override def extract(rs: WrappedResultSet, rn: ResultName[User]):User = User(
     id = rs.get(rn.id),
     email = rs.get(rn.email),
@@ -44,6 +48,14 @@ object User extends SkinnyCRUDMapper[User] {
     // function to merge associations to main entity
     merge = (user, comments) => user.copy(comments = comments)
   )
-
-
+  def findByEmail(email: String,
+             password: String)(implicit s: DBSession = autoSession): Try[Option[User]] =
+    Try {
+      User.findBy(
+        sqls
+          .eq(u.column("email"), email)
+          .and
+          .eq(u.column("password"), password)
+      )
+    }
 }

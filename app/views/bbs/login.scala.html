@@ -1,18 +1,40 @@
-@()
+@(form: Form[models.dto.UserLoginForm], formSubmitUrl: Call)(implicit request: RequestHeader, messagesProvider: MessagesProvider)
 
-    @login() = {
-        <form class="form-signin">
-            <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-            <h1 class="h3 mb-3 font-weight-normal">Đăng nhập</h1>
-            <label for="inputEmail" class="sr-only">Email:</label>
-            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" style="margin-bottom: 20px" required autofocus>
-            <label for="inputPassword" class="sr-only">Password:</label>
-            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+@login() = {
+    <div class="container">
+        @request.flash.data.map { case (name, value) =>
+            <div class="error" style="font-size: 11px,color:red"> @value</div>
+        }
+        @* Global errors are not tied to any particular form field *@
+        @if(form.hasGlobalErrors) {
+            @form.globalErrors.map { error: FormError =>
+                <div class="error" style="font-size: 11px,color:red"> @error.message</div>
+            }
+        }
+        @helper.form(formSubmitUrl) {
+            @helper.CSRF.formField
+            @helper.inputText(
+                form("email"),
+                '_label -> "Email:",
+                'placeholder -> "example@gmail.com",
+                '_help -> "",
+                'class -> "form-control"
+            )
 
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Đăng nhập</button>
-        </form>
-    }
+            @helper.inputPassword(
+                form("password"),
+                '_label -> "Mật khẩu:",
+                'class -> "form-control",
+                '_help -> "",
+                'type -> "password"
+            )
+            <button class="btn btn-lg btn-primary btn-block">Đăng nhập</button>
 
-    @main("Login") {
-        @login()
-    }
+        }
+
+    </div>
+}
+
+@main("Login") {
+    @login()
+}
