@@ -1,2 +1,22 @@
-@()
-<h1>This is register user pages</h1>
+@(form:Form[models.dto.UserCreateForm],userCreateUrl:Call)(implicit request: RequestHeader, messagesProvider: MessagesProvider)
+
+@content() = {
+    <div class="container">
+        <h2>Đăng ký thành viên</h2>
+        <hr />
+        @helper.form(userCreateUrl){
+            @helper.CSRF.formField
+            @helper.inputText(form("email"),'class->"form-control",'_label -> "Email:",'_help -> "")
+            @helper.inputText(form("name"),'class->"form-control",'_label -> "Họ tên:",'_help -> "")
+            @helper.inputText(form("password"),'class->"form-control",'type->"password",'_label -> "Mật khẩu",'_help -> "")
+            @helper.inputFile(form("urlImg"),'class->"form-control-file",'type->"file",'_label -> "Hình ảnh",'_help -> "")
+
+            <button class="btn btn-primary">Save</button>
+        }
+    </div>
+
+}
+
+@main("User Create"){
+ @content()
+}

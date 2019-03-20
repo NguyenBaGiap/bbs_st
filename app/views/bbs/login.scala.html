@@ -2,6 +2,8 @@
 
 @login() = {
     <div class="container">
+        <h2>Đăng nhập</h2>
+        <hr />
         @request.flash.data.map { case (name, value) =>
             <div class="error" style="font-size: 11px,color:red"> @value</div>
         }
